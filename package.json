@@ -15,7 +15,7 @@
     "Other"
   ],
   "author": "Ethan Ruoff <ethan.ruoff@dowjones.com>",
-  "publisher": "Dow Jones",
+  "publisher": "dow-jones",
   "activationEvents": [],
   "main": "./out/main.js",
   "contributes": {
