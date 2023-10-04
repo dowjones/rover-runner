@@ -1,0 +1,251 @@
+{
+  "name": "rover-runner",
+  "displayName": "Rover Runner",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dowjones/rover-runner.git",
+    "directory": ""
+  },
+  "description": "",
+  "version": "0.2.1",
+  "engines": {
+    "vscode": "^1.76.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "author": "Ethan Ruoff <ethan.ruoff@dowjones.com>",
+  "publisher": "Dow Jones",
+  "activationEvents": [],
+  "main": "./out/main.js",
+  "contributes": {
+    "configuration": [
+      {
+        "id": "rover-runner-settings",
+        "title": "Rover Runner",
+        "properties": {
+          "rover-runner.useRedis": {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable/disable launching a Redis instance upon running a subgraph"
+          },
+          "rover-runner.routerVersion": {
+            "type": "string",
+            "default": "1.29.1",
+            "description": "Version of Apollo Router that will be used"
+          },
+          "rover-runner.federationVersion": {
+            "type": "string",
+            "default": "=2.3.2",
+            "description": "Version of Apollo Federation that will be used"
+          },
+          "rover-runner.authorizationHeader": {
+            "type": "string",
+            "description": "Authorization header value used for introspection. Leave blank if there's no header required"
+          },
+          "rover-runner.supergraphConfigFilename": {
+            "type": "string",
+            "default": "supergraph.json",
+            "description": "Name of the supergraph configuration file"
+          },
+          "apolloStudioConfiguration.apolloKey": {
+            "type": "string",
+            "default": "",
+            "description": "Key that Apollo will use"
+          },
+          "apolloStudioConfiguration.apolloGraphRef": {
+            "type": "string",
+            "default": "",
+            "description": "The Apollo variant you would like to point to"
+          }
+        }
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "rover-runner",
+          "title": "Rover Runner",
+          "icon": "$(rocket)"
+        }
+      ]
+    },
+    "views": {
+      "rover-runner": [
+        {
+          "id": "subgraphsList",
+          "name": "Subgraphs"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "subgraphsList.setEnvironmentVariables",
+          "when": "view == subgraphsList",
+          "group": "navigation@3"
+        },
+        {
+          "command": "subgraphsList.refreshEntry",
+          "when": "view == subgraphsList",
+          "group": "navigation@2"
+        },
+        {
+          "command": "rover-runner.stopAllSubgraphs",
+          "when": "view == subgraphsList",
+          "group": "navigation@1"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "rover-runner.SelectSubgraphUrl",
+          "when": "view == subgraphsList && viewItem == StoppedSubgraph",
+          "group": "inline@0"
+        },
+        {
+          "command": "rover-runner.runSubgraph",
+          "when": "view == subgraphsList && viewItem == StoppedSubgraph",
+          "group": "inline@1"
+        },
+        {
+          "command": "rover-runner.stopSubgraph",
+          "when": "view == subgraphsList && viewItem == RunningSubgraph",
+          "group": "inline"
+        },
+        {
+          "command": "rover-runner.runSupergraph",
+          "when": "view == subgraphsList && viewItem == StoppedSupergraph",
+          "group": "inline@1"
+        },
+        {
+          "command": "rover-runner.stopSupergraph",
+          "when": "view == subgraphsList && viewItem == RunningSupergraph",
+          "group": "inline"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "subgraphsList",
+        "contents": "No subgraph configuration found! \n[Generate Template](command:rover-runner.GenerateTemplate)"
+      }
+    ],
+    "walkthroughs": [
+      {
+        "id": "gettingStarted",
+        "title": "Getting Started",
+        "description": "How to get up and running with Rover Runner",
+        "steps": [
+          {
+            "id": "setupSupergraphJson",
+            "title": "Setup Supergraph.json",
+            "description": "Configure your Supergraph URLs in order to locally run the Supergraph \n[Generate Template](command:rover-runner.GenerateTemplate)",
+            "completionEvents": [
+              "onCommand:rover-runner.GenerateTemplate"
+            ],
+            "media": {
+              "image": "media/tbd.jpg",
+              "altText": "sample image"
+            }
+          },
+          {
+            "id": "configureExtension",
+            "title": "Configure the extension",
+            "description": "In order to run Rover commands, you'll need to provide a few inputs like the Apollo Graph Ref and Apollo Key. This step will take you to that page.\n[Go To Settings](command:subgraphsList.setEnvironmentVariables)",
+            "completionEvents": [
+              "onSettingChanged:apolloStudioConfiguration.apolloKey",
+              "onSettingChanged:apolloStudioConfiguration.apolloGraphRef"
+            ],
+            "media": {
+              "image": "media/tbd.jpg",
+              "altText": "sample image"
+            }
+          }
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "command": "rover-runner.apolloIsConfigured",
+        "title": "Triggers First Step Complete"
+      },
+      {
+        "command": "rover-runner.GenerateTemplate",
+        "title": "Generate Template"
+      },
+      {
+        "command": "rover-runner.SelectSubgraphUrl",
+        "title": "Select Subgraph Url",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "rover-runner.runSubgraph",
+        "title": "Run Subgraph",
+        "icon": "$(run)"
+      },
+      {
+        "command": "rover-runner.stopSubgraph",
+        "title": "Stop Subgraph",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "rover-runner.runSupergraph",
+        "title": "Run Subgraph Supergraph",
+        "icon": "$(run)"
+      },
+      {
+        "command": "rover-runner.stopSupergraph",
+        "title": "Stop Subgraph Supergraph",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "rover-runner.stopAllSubgraphs",
+        "title": "Stop All Subgraphs",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "subgraphsList.refreshEntry",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "subgraphsList.setEnvironmentVariables",
+        "title": "Set Environment Variables",
+        "icon": "$(settings-gear)"
+      }
+    ]
+  },
+  "scripts": {
+    "setup": "npm ci",
+    "vscode:prepublish": "npm run esbuild-base -- --minify",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node --target=es2020",
+    "build": "npm run esbuild-base -- --sourcemap",
+    "watch": "npm run esbuild-base -- --sourcemap --watch",
+    "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+    "pretest": "npm run build && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "eslint src --ext ts && tsc",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/detect-port": "1.3.2",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.76.0",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "@vscode/test-electron": "^2.3.0",
+    "@vscode/vsce": "2.21.0",
+    "esbuild": "0.18.6",
+    "eslint": "^8.36.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "axios": "1.4.0",
+    "detect-port": "1.5.1",
+    "yaml": "2.3.1"
+  }
+}

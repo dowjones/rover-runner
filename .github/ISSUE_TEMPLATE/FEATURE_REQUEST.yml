@@ -1,0 +1,50 @@
+name: Feature Request
+description: Request a new feature
+title: "[Feat]: "
+labels: ["feature", "triage"]
+assignees:
+  - WolffRuoff
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking for using our extension and contributing your feedback!
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can we get in touch with you if we need more info?
+      placeholder: ex. email@example.com
+    validations:
+      required: false
+  - type: textarea
+    id: what-does-it-do
+    attributes:
+      label: What feature do you want?
+      description: Describe the feature you want to request 
+      placeholder: Tell us your dream feature!
+    validations:
+      required: true
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Your Use Case
+      description: Why are you requesting this feature? What will it be used for?
+      placeholder: Every company is different so we want to understand your needs!
+    validations:
+      required: true
+  - type: textarea
+    id: inputs-outputs
+    attributes:
+      label: Possible Inputs/Outputs
+      description: What inputs / outputs should this feature have if applicable?
+    validations:
+      required: false
+  - type: textarea
+    id: references
+    attributes:
+      label: Reference Materials
+      description: Does a similar software/extension have this feature? If so who?
+      placeholder: Rover CLI
+    validations:
+      required: false

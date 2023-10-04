@@ -1,0 +1,12 @@
+# TypeScript cache
+*.tsbuildinfo
+
+.DS_Store
+npm-debug.log
+Thumbs.db
+tsconfig.lsif.json
+*.lsif
+*.db
+node_modules/*
+.vscode-test/*
+out/*
