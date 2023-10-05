@@ -38,7 +38,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build Package
-        run: npm run prepublish
+        run: npm run prepublish-ci
       - name: Run Tests
         uses: coactions/setup-xvfb@v1
         with:
@@ -65,9 +65,9 @@ jobs:
           npm version $RELEASE_VERSION
           git tag -a $RELEASE_VERSION -m "$RELEASE_VERSION"
       - name: Package Extension
-        run: npm run package $RELEASE_VERSION --no-git-tag-version --no-update-package-json -o "./rover-runner-$RELEASE_VERSION.vsix"
+        run: npm run package -- $RELEASE_VERSION -o "./rover-runner-$RELEASE_VERSION.vsix"
       - name: Publish to Visual Studio Marketplace
-        run: npm run publish --packagePath "./rover-runner-$RELEASE_VERSION.vsix" --no-git-tag-version --no-update-package-json -p ${{ secrets.VSC_MKTP_PAT }}
+        run: npm run publish -- --packagePath "./rover-runner-$RELEASE_VERSION.vsix" -p ${{ secrets.VSC_MKTP_PAT }}
         if: ${{ github.event.inputs.publishMarketplace == 'yes' }}
       - name: Push Tags
         run: |
