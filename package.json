@@ -7,10 +7,10 @@
     "directory": ""
   },
   "icon": "media/RoverLogo.png",
-	"galleryBanner": {
-		"color": "#FFEADB",
-		"theme": "dark"
-	},
+  "galleryBanner": {
+    "color": "#FFEADB",
+    "theme": "dark"
+  },
   "description": "",
   "version": "0.2.2",
   "engines": {
