@@ -61,8 +61,6 @@ README updated for open source
 
 Open Source Release
 
----
-
 ## For Devs
 
 Make sure the root folder in your workspace is `rover-runner` or else you won't be able to debug the app
