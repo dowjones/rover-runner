@@ -6,6 +6,11 @@
     "url": "https://github.com/dowjones/rover-runner.git",
     "directory": ""
   },
+  "icon": "media/RoverLogo.png",
+	"galleryBanner": {
+		"color": "#FFEADB",
+		"theme": "dark"
+	},
   "description": "",
   "version": "0.2.2",
   "engines": {
