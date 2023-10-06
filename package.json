@@ -149,8 +149,8 @@
               "onCommand:rover-runner.GenerateTemplate"
             ],
             "media": {
-              "image": "https://github.com/dowjones/rover-runner/blob/main/media/tbd.jpg",
-              "altText": "sample image"
+              "image": "https://github.com/dowjones/rover-runner/blob/main/media/supergraph.png",
+              "altText": "Screenshot of a configured supergraph.json"
             }
           },
           {
@@ -162,8 +162,8 @@
               "onSettingChanged:apolloStudioConfiguration.apolloGraphRef"
             ],
             "media": {
-              "image": "https://github.com/dowjones/rover-runner/blob/main/media/tbd.jpg",
-              "altText": "sample image"
+              "image": "https://github.com/dowjones/rover-runner/blob/main/media/settings.png",
+              "altText": "Screenshot of the Rover Runner settings"
             }
           }
         ]
