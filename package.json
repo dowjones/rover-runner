@@ -149,7 +149,7 @@
               "onCommand:rover-runner.GenerateTemplate"
             ],
             "media": {
-              "image": "media/tbd.jpg",
+              "image": "https://github.com/dowjones/rover-runner/blob/main/media/tbd.jpg",
               "altText": "sample image"
             }
           },
@@ -162,7 +162,7 @@
               "onSettingChanged:apolloStudioConfiguration.apolloGraphRef"
             ],
             "media": {
-              "image": "media/tbd.jpg",
+              "image": "https://github.com/dowjones/rover-runner/blob/main/media/tbd.jpg",
               "altText": "sample image"
             }
           }
