@@ -1,7 +1,7 @@
 # Rover Runner README
 Welcome to the Rover Runner! With this extension you can run your supergraph on your local machine using a mix of local and Apollo-based variant subgraphs
 
-![Menu Screenshot](https://github.com/dowjones/rover-runner/blob/main/media/menuScreenshot.png)
+![Menu Screenshot](https://raw.githubusercontent.com/dowjones/rover-runner/main/media/menuScreenshot.png)
  
 ## Features
 
