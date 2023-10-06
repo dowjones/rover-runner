@@ -7,11 +7,7 @@
     "directory": ""
   },
   "icon": "media/RoverLogo.png",
-  "galleryBanner": {
-    "color": "#FFEADB",
-    "theme": "dark"
-  },
-  "description": "",
+  "description": "Tooling to locally debug subgraphs deployed to Apollo Studio with the Rover CLI",
   "version": "0.2.3",
   "engines": {
     "vscode": "^1.76.0"
