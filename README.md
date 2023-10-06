@@ -53,6 +53,10 @@ Lastly, this extension also requires a `router.yaml` file at `.rover-runner/rout
 
 ## Release Notes
 
+### 0.2.4
+
+Add description to extension
+
 ### 0.2.3
 
 README updated for open source
