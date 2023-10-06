@@ -6,6 +6,11 @@
     "url": "https://github.com/dowjones/rover-runner.git",
     "directory": ""
   },
+  "icon": "media/RoverLogo.png",
+  "galleryBanner": {
+    "color": "#FFEADB",
+    "theme": "dark"
+  },
   "description": "",
   "version": "0.2.2",
   "engines": {
@@ -144,8 +149,8 @@
               "onCommand:rover-runner.GenerateTemplate"
             ],
             "media": {
-              "image": "media/tbd.jpg",
-              "altText": "sample image"
+              "image": "https://github.com/dowjones/rover-runner/blob/main/media/supergraph.png",
+              "altText": "Screenshot of a configured supergraph.json"
             }
           },
           {
@@ -157,8 +162,8 @@
               "onSettingChanged:apolloStudioConfiguration.apolloGraphRef"
             ],
             "media": {
-              "image": "media/tbd.jpg",
-              "altText": "sample image"
+              "image": "https://github.com/dowjones/rover-runner/blob/main/media/settings.png",
+              "altText": "Screenshot of the Rover Runner settings"
             }
           }
         ]

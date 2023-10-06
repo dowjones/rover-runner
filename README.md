@@ -1,9 +1,7 @@
-# rover-runner README
+# Rover Runner README
 Welcome to the Rover Runner! With this extension you can run your supergraph on your local machine using a mix of local and Apollo-based variant subgraphs
 
-![Menu Screenshot](./media/menuScreenshot.png)
-
-You can install the latest version to VSCode by going to extensions, hitting the 3-dot menu, and selecting `Install from VSIX...`. From there choose the vsix file in this repo.
+![Menu Screenshot](https://github.com/dowjones/rover-runner/blob/main/media/menuScreenshot.png)
  
 ## Features
 
@@ -55,13 +53,13 @@ Lastly, this extension also requires a `router.yaml` file at `.rover-runner/rout
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.2.3
 
-### 1.0.0
+README updated for open source
 
-Initial release of Rover Runner
+### 0.2.2
 
----
+Open Source Release
 
 ## For Devs
 
