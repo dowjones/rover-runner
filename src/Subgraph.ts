@@ -254,7 +254,7 @@ export class Subgraph extends vscode.TreeItem {
         type: 'node',
         request: 'launch',
         name: this.label,
-        program: '${workspaceRoot}' + `/${this.filePath}/server.js`,
+        program: `${this.filePath}/server.js`,
         skipFiles: ['<node_internals>/**'],
         // eslint-disable-next-line @typescript-eslint/naming-convention
         env: { NODE_ENV: 'local' },

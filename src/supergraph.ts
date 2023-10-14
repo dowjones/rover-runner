@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 import { setTimeout } from 'timers/promises';
-import { fetchSubgraphUrls } from './setup';
+import { fetchSubgraphUrls, makePathAbsolute } from './setup';
 import { ExtensionContext, TreeItem, TreeItemCollapsibleState, window, workspace } from 'vscode';
 import { SupergraphYaml, writeSupergraphYaml } from './supergraphYaml';
 import { Subgraph } from './Subgraph';
@@ -35,6 +35,7 @@ export class Supergraph extends TreeItem {
       const current = context.workspaceState.get(subgraphName + 'currentUrl', 'devUrl');
       // Can either be Stopped or Running
       const contextValue = context.workspaceState.get(subgraphName, 'StoppedSubgraph');
+      const filePath = makePathAbsolute(subgraphConfig.path, configPath);
       return [
         new Subgraph(
           subgraphName,
@@ -42,7 +43,7 @@ export class Supergraph extends TreeItem {
           subgraphConfig.localUrl,
           usedDevUrl,
           contextValue,
-          subgraphConfig.path,
+          filePath,
           TreeItemCollapsibleState.None
         ),
       ];
