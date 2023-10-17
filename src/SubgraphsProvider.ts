@@ -54,7 +54,7 @@ export class SubgraphsProvider implements vscode.TreeDataProvider<Subgraph | Sup
   }
 
   private getSupergraphs(configPath: string): Supergraph[] {
-    const toSupergraph = (supergraphName: string, supergraph: []): Supergraph => {
+    const toSupergraph = (supergraphName: string): Supergraph => {
       // Can either be Stopped or Running
       const contextValue = this.context.workspaceState.get(`${supergraphName}Supergraph`, 'StoppedSupergraph');
       const newSupergraph = new Supergraph(
@@ -69,11 +69,11 @@ export class SubgraphsProvider implements vscode.TreeDataProvider<Subgraph | Sup
       return newSupergraph;
     };
     const configJson = JSON.parse(readFileSync(configPath, 'utf-8'));
-    let supergraphs: Supergraph[] = [toSupergraph('All', [])];
+    let supergraphs: Supergraph[] = [toSupergraph('All')];
     supergraphs = supergraphs.concat(
       configJson.supergraphs
         ? Object.keys(configJson.supergraphs).map((supergraph) =>
-            toSupergraph(supergraph, configJson.supergraphs[supergraph])
+            toSupergraph(supergraph)
           )
         : []
     );

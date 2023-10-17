@@ -27,7 +27,7 @@ export const selectUrl = (rootPath: string, subgraph: Subgraph, context: Extensi
     },
   ];
   urlSelector.onDidChangeSelection(() => {
-    let label = urlSelector.selectedItems[0].label || '';
+    const label = urlSelector.selectedItems[0].label || '';
     if (!label) {
       return;
     }
@@ -37,7 +37,7 @@ export const selectUrl = (rootPath: string, subgraph: Subgraph, context: Extensi
     urlSelector.dispose();
   });
   urlSelector.onDidTriggerItemButton((item) => {
-    let placeHolder = item.item.label === 'Use Local Url' ? subgraph.local : subgraph.dev;
+    const placeHolder = item.item.label === 'Use Local Url' ? subgraph.local : subgraph.dev;
     window
       .showInputBox({
         ignoreFocusOut: true,
@@ -49,12 +49,12 @@ export const selectUrl = (rootPath: string, subgraph: Subgraph, context: Extensi
         if (!inp) {
           return;
         }
-        let filePath = `${rootPath}/.rover-runner/${context.workspaceState.get(
+        const filePath = `${rootPath}/.rover-runner/${context.workspaceState.get(
           'Supergraph Configuration Filename',
           'supergraph.json'
         )}`;
-        let supergraphJson = JSON.parse(readFileSync(filePath, 'utf-8'));
-        let urlKey: string = item.item.label === 'Use Local Url' ? 'localUrl' : 'devUrl';
+        const supergraphJson = JSON.parse(readFileSync(filePath, 'utf-8'));
+        const urlKey: string = item.item.label === 'Use Local Url' ? 'localUrl' : 'devUrl';
         supergraphJson.subgraphs[subgraph.label][urlKey] = inp;
         writeFileSync(filePath, JSON.stringify(supergraphJson, null, 2), 'utf-8');
         if (urlKey === 'localUrl') {

@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { commands, window, workspace } from 'vscode';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { isAbsolute, join } from 'path';
 import axios from 'axios';
 
 export const sampleSupergraphJson = {
   subgraphs: {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     Subgraph1: {
-      path: '',
+      path: '/Users/name/Desktop/repos/subgraph',
       localUrl: 'http://localhost:3000/graphql',
     },
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -38,15 +39,22 @@ export const generateTemplate = (rootPath: string) => {
     mkdirSync(rootPath + '/.vscode');
   }
   if (!existsSync(rootPath + '/.rover-runner/supergraph.json')) {
-    writeFileSync(`${rootPath}/.rover-runner/supergraph.json`, JSON.stringify(sampleSupergraphJson, null, 2), 'utf-8');
+    writeFileSync(
+      `${rootPath}/.rover-runner/supergraph.json`,
+      JSON.stringify(sampleSupergraphJson, null, 2),
+      'utf-8'
+    );
     commands.executeCommand('subgraphsList.refreshEntry');
   }
 };
 
 export const isApolloConfigured = () => {
   if (
-    workspace.getConfiguration().get('apolloStudioConfiguration.apolloKey', '').length > 0 &&
-    workspace.getConfiguration().get('apolloStudioConfiguration.apolloGraphRef', '').length > 0
+    workspace.getConfiguration().get('apolloStudioConfiguration.apolloKey', '')
+      .length > 0 &&
+    workspace
+      .getConfiguration()
+      .get('apolloStudioConfiguration.apolloGraphRef', '').length > 0
   ) {
     return true;
   }
@@ -54,9 +62,13 @@ export const isApolloConfigured = () => {
 };
 
 export const fetchSubgraphUrls = async () => {
-  let apolloKey = workspace.getConfiguration().get('apolloStudioConfiguration.apolloKey', '');
-  let graphRef = workspace.getConfiguration().get('apolloStudioConfiguration.apolloGraphRef', '');
-  let body = {
+  const apolloKey = workspace
+    .getConfiguration()
+    .get('apolloStudioConfiguration.apolloKey', '');
+  const graphRef = workspace
+    .getConfiguration()
+    .get('apolloStudioConfiguration.apolloGraphRef', '');
+  const body = {
     operationName: 'GetSubgraphUrls',
     query:
       'query GetSubgraphUrls($ref: ID!) { variant(ref: $ref) { ... on GraphVariant { subgraphs { name url }}  ... on InvalidRefFormat { message }}}',
@@ -90,4 +102,14 @@ export const fetchSubgraphUrls = async () => {
       window.showErrorMessage(errorResponse);
       return {};
     });
+};
+
+export const makePathAbsolute = (filePath: string, configPath: string) => {
+  // If absolute or empty path, then return
+  if (isAbsolute(filePath) || filePath.length === 0) {
+    return filePath;
+  }
+  // Convert relative path to be absolute
+  const workspaceRoot = configPath.split('.rover-runner')[0];
+  return join(workspaceRoot, filePath);
 };
