@@ -8,7 +8,7 @@ export const sampleSupergraphJson = {
   subgraphs: {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     Subgraph1: {
-      path: '',
+      path: '/Users/name/Desktop/repos/subgraph',
       localUrl: 'http://localhost:3000/graphql',
     },
     // eslint-disable-next-line @typescript-eslint/naming-convention
