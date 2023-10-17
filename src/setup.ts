@@ -62,13 +62,13 @@ export const isApolloConfigured = () => {
 };
 
 export const fetchSubgraphUrls = async () => {
-  let apolloKey = workspace
+  const apolloKey = workspace
     .getConfiguration()
     .get('apolloStudioConfiguration.apolloKey', '');
-  let graphRef = workspace
+  const graphRef = workspace
     .getConfiguration()
     .get('apolloStudioConfiguration.apolloGraphRef', '');
-  let body = {
+  const body = {
     operationName: 'GetSubgraphUrls',
     query:
       'query GetSubgraphUrls($ref: ID!) { variant(ref: $ref) { ... on GraphVariant { subgraphs { name url }}  ... on InvalidRefFormat { message }}}',

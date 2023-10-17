@@ -23,14 +23,14 @@ export class Supergraph extends TreeItem {
 
   async getChildren(configPath: string, context: ExtensionContext): Promise<Subgraph[]> {
     const toSubgraph = (subgraphName: string): Subgraph[] => {
-      let apolloDevUrl =
+      const apolloDevUrl =
         apolloSubgraphs.data.variant?.subgraphs.find((e: any) => e['name'] === subgraphName)?.url ?? '';
-      let subgraphConfig = configJson.subgraphs[subgraphName];
+      const subgraphConfig = configJson.subgraphs[subgraphName];
       if (!subgraphConfig) {
         window.showErrorMessage(`Subgraph ${subgraphName} in supergraph has no match in the subgraphs list`);
         return [];
       }
-      let usedDevUrl = subgraphConfig?.devUrl ?? apolloDevUrl;
+      const usedDevUrl = subgraphConfig?.devUrl ?? apolloDevUrl;
       // Can either be devUrl or localUrl
       const current = context.workspaceState.get(subgraphName + 'currentUrl', 'devUrl');
       // Can either be Stopped or Running
@@ -106,7 +106,7 @@ export class Supergraph extends TreeItem {
       .then(() => writeSupergraphYaml(supergraphYaml))
       .then(
         () => {
-          let roverTerminal =
+          const roverTerminal =
             window.terminals.find((i) => i.name === `Rover Runner`) || window.createTerminal(`Rover Runner`);
           roverTerminal.show(true);
           roverTerminal.sendText(`
@@ -124,14 +124,15 @@ export class Supergraph extends TreeItem {
   }
 
   public stopRunning(context: ExtensionContext): Promise<string> {
+    // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve, reject) => {
-      let roverTerminal = window.terminals.find((i) => i.name === `Rover Runner`);
+      const roverTerminal = window.terminals.find((i) => i.name === `Rover Runner`);
       if (roverTerminal) {
         roverTerminal.sendText('\u0003');
         await setTimeout(3000);
         roverTerminal.dispose();
       }
-      let stopList: any[] = [];
+      const stopList: Promise<void>[] = [];
       // Add subgraphs to a promise all
       this.children.forEach((subgraph) => {
         if (context.workspaceState.get(subgraph.label) === 'RunningSubgraph') {
