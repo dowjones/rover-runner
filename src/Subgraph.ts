@@ -15,7 +15,7 @@ export const startup = (
   subgraph: Subgraph,
   debug: boolean,
   context: vscode.ExtensionContext,
-  shouldRefresh: boolean = true
+  shouldRefresh = true
 ) => {
   const subgraphStartupFulfilled = (name: string) => {
     context.workspaceState.update(name, 'RunningSubgraph');
@@ -99,7 +99,7 @@ export class Subgraph extends vscode.TreeItem {
       // Add auth header if Bearer Token set
       const authHeader = vscode.workspace.getConfiguration().get('rover-runner.authorizationHeader', '');
       process.env.ROV_TOK = authHeader;
-      let introspectionQuery = authHeader.length
+      const introspectionQuery = authHeader.length
         ? `rover subgraph introspect ${url} --header "Authorization: $ROV_TOK" --output ${this.label}.graphql`
         : `rover subgraph introspect ${url} --output ${this.label}.graphql`;
       const workspacePath = join(vscode.workspace?.workspaceFolders?.[0]?.uri?.fsPath || '', '.rover-runner/');
@@ -108,8 +108,10 @@ export class Subgraph extends vscode.TreeItem {
         env: process.env,
       });
       return Promise.resolve('');
-    } catch (e: any) {
-      console.log(e?.message);
+    } catch (err) {
+      if (err instanceof Error) {
+        console.log(err?.message);
+      }
       return Promise.reject(`Introspection failed at ${url}. Make sure Auth is up to date`);
     }
   }
@@ -124,14 +126,14 @@ export class Subgraph extends vscode.TreeItem {
       return Promise.resolve('Path not provided');
     } else if (debug) {
       this.setLaunchJson();
-      let folder = vscode.workspace.workspaceFolders?.[0];
+      const folder = vscode.workspace.workspaceFolders?.[0];
       await vscode.debug.startDebugging(folder, this.label, {
         suppressDebugToolbar: false,
       });
       this.contextValue = 'RunningSubgraph';
       return Promise.resolve('Launched in debug mode');
     } else {
-      let subgraphTerminal =
+      const subgraphTerminal =
         vscode.window.terminals.find((i) => i.name === this.label) || vscode.window.createTerminal(this.label);
       subgraphTerminal.show(true);
       subgraphTerminal.sendText(
@@ -145,7 +147,7 @@ export class Subgraph extends vscode.TreeItem {
 
   public async startRunning(debug: boolean): Promise<string> {
     this.contextValue = 'RunningSubgraph';
-    let roverTerminal =
+    const roverTerminal =
       vscode.window.terminals.find((i) => i.name === `Rover ${this.label}`) ||
       vscode.window.createTerminal(`Rover ${this.label}`);
     roverTerminal.sendText(`
@@ -159,7 +161,7 @@ export class Subgraph extends vscode.TreeItem {
       await setTimeout(3000);
       roverTerminal.show(true);
       // Make sure the subgraph is running before trying to run rover
-      let port: number = parseInt(this.local.split(':')?.[2]?.split('/')?.[0]);
+      const port: number = parseInt(this.local.split(':')?.[2]?.split('/')?.[0]);
       return await detect(port).then((_port: number) => {
         // _port is the next available port so if equal then server isn't running
         if (port === _port && this.filePath) {
@@ -209,9 +211,10 @@ export class Subgraph extends vscode.TreeItem {
   }
 
   public async stopRunning(): Promise<string> {
+    // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve) => {
       this.contextValue = 'StoppedSubgraph';
-      let roverTerminal = vscode.window.terminals.find((i) => i.name === `Rover ${this.label}`);
+      const roverTerminal = vscode.window.terminals.find((i) => i.name === `Rover ${this.label}`);
       if (roverTerminal) {
         roverTerminal.sendText('\u0003');
         await setTimeout(3000);
@@ -219,7 +222,7 @@ export class Subgraph extends vscode.TreeItem {
       }
 
       if (this.current === 'localUrl') {
-        let subgraphTerminal = vscode.window.terminals.find((i) => i.name === this.label);
+        const subgraphTerminal = vscode.window.terminals.find((i) => i.name === this.label);
         if (subgraphTerminal) {
           subgraphTerminal.sendText('\u0003');
           await setTimeout(3000);
@@ -231,8 +234,8 @@ export class Subgraph extends vscode.TreeItem {
   }
 
   setLaunchJson = () => {
-    let fileP: string = vscode.workspace.workspaceFolders?.[0].uri.path + '/.vscode/launch.json';
-    let launchFile = existsSync(fileP) ? readFileSync(fileP, 'utf-8') : undefined;
+    const fileP: string = vscode.workspace.workspaceFolders?.[0].uri.path + '/.vscode/launch.json';
+    const launchFile = existsSync(fileP) ? readFileSync(fileP, 'utf-8') : undefined;
     let launchJson = launchFile ? JSON.parse(launchFile) : {};
 
     if (!launchJson || !launchJson?.configurations) {
@@ -254,7 +257,7 @@ export class Subgraph extends vscode.TreeItem {
         type: 'node',
         request: 'launch',
         name: this.label,
-        program: '${workspaceRoot}' + `/${this.filePath}/server.js`,
+        program: `${this.filePath}/server.js`,
         skipFiles: ['<node_internals>/**'],
         // eslint-disable-next-line @typescript-eslint/naming-convention
         env: { NODE_ENV: 'local' },

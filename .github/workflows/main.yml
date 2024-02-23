@@ -64,7 +64,6 @@ jobs:
       - name: Version Package
         run: |
           npm version $RELEASE_VERSION
-          git tag -a $RELEASE_VERSION -m "$RELEASE_VERSION"
       - name: Package Extension
         run: npm run package -- $RELEASE_VERSION -o "./rover-runner-$RELEASE_VERSION.vsix"
       - name: Publish to Visual Studio Marketplace

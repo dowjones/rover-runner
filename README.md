@@ -19,7 +19,7 @@ This extension requires a `supergraph.json` file at `.rover-runner/supergraph.js
 {
   "subgraphs": {
     "Subgraph1": {
-      "path": "",
+      "path": "/Users/name/Desktop/repos/subgraph",
       "localUrl": "http://localhost:3000/graphql"
     },
     "Subgraph2": {
@@ -40,7 +40,7 @@ This extension requires a `supergraph.json` file at `.rover-runner/supergraph.js
 ```
 Some notes about this format:
 - `Subgraph1`, `Subgraph2`, etc are the subgraph names and should match the names in Apollo Studio
-- `path` is the relative path to the subgraph from the workspace root. If this is blank like in `Subgraph1`, then you need to run the subgraph on its own 
+- `path` is the path to the subgraph. It can either be a relative path from the workspace root like in `Subgraph2` or an absolute path like in `Subgraph1`.
 - `localUrl` is the graphQL endpoint when running the subgraph locally
 - `devUrl` is the graphQL endpoint for the GraphQL variant. This field is optional as the extension will grab the endpoint from Apollo Studio by default
 
